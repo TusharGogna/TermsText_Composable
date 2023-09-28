@@ -16,4 +16,8 @@ In order to consume the library, you simply need to call the Composable "TermsTe
 The ArrayList should look something like:
 arrayListOf("I agree to the ", "Terms and Conditions", " & ",  "Privacy Policy")
 
+# How it will appear:
+It should look something like this:
+![Screenshot_20230928_171844](https://github.com/TusharGogna/TermsText_Composable/assets/36148180/be577e4c-bb66-4759-bcd4-dd2d878c677c)
+
 Happy Coding! 
