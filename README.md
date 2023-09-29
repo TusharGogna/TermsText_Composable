@@ -2,7 +2,14 @@
 TermsText_Composable is a small lib which will save you time when you want to implement Terms and Condition + Privacy Policy text in Compose.
 
 # How to use:
-In order to consume the library, you simply need to call the Composable "TermsText" which takes the following parameters:
+In your Settings.gradle.kts, add:
+
+        maven { url = uri("https://jitpack.io") }
+and in your app level build.gradle.kts, add:
+
+         implementation("com.github.TusharGogna:TermsText_Composable:v1.0.4")
+
+Then, in order to consume the library, you simply need to call the Composable "TermsText" which takes the following parameters:
  * @param list is an arraylist which will pick 4 String params used to set the actual text.
  * The texts on Index[0] & Index[2] will be non clickable where as
  * the texts on Index[1] & Index[3] will be clickable and can only open URLs on Browsers.
