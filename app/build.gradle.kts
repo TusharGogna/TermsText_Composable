@@ -65,5 +65,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-    implementation(project(mapOf("path" to ":terms_and_condition_compose")))
+    //implementation("com.github.TusharGogna:TermsText_Composable:v1.0.4")
+
+     implementation(project(mapOf("path" to ":terms_and_condition_compose")))
 }

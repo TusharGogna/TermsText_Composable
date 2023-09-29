@@ -32,12 +32,13 @@ import androidx.compose.foundation.text.ClickableText
  * @param policyURL is a String which will take in the full URL of Privacy Policy page ideally.
  * @exception IllegalArgumentException is thrown if the stringArray size is less than 4.
  */
+@JvmOverloads
 @Composable
 fun TermsText(
     stringArray: ArrayList<String> = arrayListOf(
-        "I agree to the ",
+        "I agree to the",
         "Terms and Conditions",
-        " & ",
+        "&",
         "Privacy Policy"
     ),
     termsURL: String?,
@@ -99,15 +100,19 @@ fun TermsText(
  * @param context is simply the context needed to start the intent.
  */
 @Composable
+@Deprecated(
+    "",
+    ReplaceWith("TermsText(stringArray: ArrayList<String>, termsString?, policyString?)")
+)
 @JvmName("TermsTextDeprecated")
 private fun TermsText(
     textSize: Float? = 16F,
     textColor: Int? = Color.BLACK,
     textLinkColor: Int? = Color.BLUE,
     list: ArrayList<String> = arrayListOf(
-        "I agree to the ",
+        "I agree to the",
         "Terms and Conditions",
-        " & ",
+        "&",
         "Privacy Policy"
     ),
     termsURL: String?,
