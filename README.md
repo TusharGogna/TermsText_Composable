@@ -13,7 +13,12 @@ The ArrayList should look something like:
 arrayListOf("I agree to the ", "Terms and Conditions", " & ",  "Privacy Policy") 
 
 If the list contains less than 4 items then IllegalArgumentException will be thrown.
+In your Settings.gradle.kts, add:
 
+        maven { url = uri("https://jitpack.io") }
+and in your app level build.gradle.kts, add:
+
+         implementation("com.github.TusharGogna:TermsText_Composable:v1.0.4")
 # How it will appear:
 It should look something like this:
 ![Screenshot_20230928_171844](https://github.com/TusharGogna/TermsText_Composable/assets/36148180/be577e4c-bb66-4759-bcd4-dd2d878c677c)
