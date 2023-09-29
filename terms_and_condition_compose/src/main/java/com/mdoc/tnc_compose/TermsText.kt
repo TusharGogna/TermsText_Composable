@@ -12,10 +12,16 @@ import android.widget.TextView
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.AndroidView
 import android.graphics.Color
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
+import kotlin.concurrent.thread
+import androidx.compose.foundation.text.ClickableText
 
 /**
  * @Author: Tushar Gogna
- * @Date: 2023.09.28
+ * @Date: 2023.09.29
  */
 
 /**
@@ -30,7 +36,7 @@ import android.graphics.Color
  * @param context is simply the context needed to start the intent.
  */
 @Composable
-fun TermsText(
+private fun TermsText(
     textSize: Float? = 16F,
     textColor: Int? = Color.BLACK,
     textLinkColor: Int? = Color.BLUE,
@@ -55,6 +61,59 @@ fun TermsText(
             customTextView(textView, textColor, textLinkColor, list, termsURL, privacyURL, context)
         }
     )
+}
+
+/**
+ * @param stringArray is an arraylist which will pick 4 String params used to set the actual text.
+ * The texts on Index[0] & Index[2] will be non clickable where as
+ * the texts on Index[1] & Index[3] will be clickable and can only open URLs on Browsers.
+ * @param termsURL is a String which will take in the full URL of Terms and Condition page ideally.
+ * @param policyURL is a String which will take in the full URL of Privacy Policy page ideally.
+ * @exception IllegalArgumentException is thrown if the stringArray size is less than 4.
+ */
+@Composable
+fun TermsText(stringArray: ArrayList<String>, termsURL: String?, policyURL: String?) {
+    if (stringArray.size < 4) {
+        thread(name = "WatchdogThread") {
+            throw IllegalArgumentException("The Length of stringArray should be 4 where index values 1 and 3 are clickable.")
+        }
+        return
+    }
+    val annotatedString = buildAnnotatedString {
+        val text = stringArray.joinToString(" ")
+        append(text)
+        val startT = text.indexOf(stringArray[1])
+        val endT = startT + stringArray[1].length
+        val startP = text.indexOf(stringArray[3])
+        val endP = startP + stringArray[3].length
+        addStyle(
+            SpanStyle(
+                color = androidx.compose.ui.graphics.Color.Blue,
+                textDecoration = TextDecoration.Underline
+            ),
+            startT, endT
+        )
+        addStyle(
+            SpanStyle(
+                color = androidx.compose.ui.graphics.Color.Blue,
+                textDecoration = TextDecoration.Underline
+            ),
+            startP, endP
+        )
+        termsURL?.let { addStringAnnotation("termsURL", it, startT, endT) }
+        policyURL?.let { addStringAnnotation("policyURL", it, startP, endP) }
+    }
+    val uriHandler = LocalUriHandler.current
+    ClickableText(text = annotatedString) { offset ->
+        val tUri = annotatedString.getStringAnnotations("termsURL", offset, offset)
+            .firstOrNull()?.item
+        val pUri = annotatedString.getStringAnnotations("policyURL", offset, offset)
+            .firstOrNull()?.item
+        if (tUri != null)
+            uriHandler.openUri(tUri)
+        else if (pUri != null)
+            uriHandler.openUri(pUri)
+    }
 }
 
 private fun customTextView(

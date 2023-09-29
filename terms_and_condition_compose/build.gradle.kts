@@ -40,9 +40,10 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.foundation:foundation:1.5.2")
 }
 
 publishing {
@@ -50,7 +51,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.github.tushargogna"
             artifactId = "TermsText_Compose"
-            version = "1.0"
+            version = "1.1"
             afterEvaluate {
                 from(components["release"])
             }
