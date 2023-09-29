@@ -131,8 +131,6 @@ private fun TermsText(
         }
     )
 }
-
-
 private fun customTextView(
     view: TextView,
     normalColor: Int?,
